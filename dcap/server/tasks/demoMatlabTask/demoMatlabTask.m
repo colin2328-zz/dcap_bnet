@@ -3,11 +3,11 @@ success = true; %will be set to false if we catch an exception
 
 try 
     %add codebase to path
-    workingDir = pwd;
-    index = regexp(workingDir,'EVO-DesignOpt/')+13;
-    cd(workingDir(1:index));
-    addpath(genpath(pwd));
-    
+%     workingDir = pwd;
+%     index = regexp(workingDir,'EVO-DesignOpt/')+13;
+%     cd(workingDir(1:index));
+%     addpath(genpath(pwd));
+%     
     % show the current directory for debugging
 	disp(pwd);
  
