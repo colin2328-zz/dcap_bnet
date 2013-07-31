@@ -1,0 +1,11 @@
+29 Jul 2013 21:23:31Periodic log entry, there are currently:	 1 tasks yet to complete
+29 Jul 2013 21:23:31Listening for clients
+29 Jul 2013 21:23:31EVOServer: Listener: Accepting connections on port 4444
+29 Jul 2013 21:24:18New connection from ('127.0.0.1', 48570)
+29 Jul 2013 21:24:18Received a requestTaskmessage from client: ('127.0.0.1', 48570)
+29 Jul 2013 21:24:18sent demoMatlabTask,./server/tasks/demoMatlabTask.py,./server/tasks/demoMatlabTaskto ('127.0.0.1', 48570)
+29 Jul 2013 21:24:18Received a resultmessage from client: ('127.0.0.1', 48570)
+29 Jul 2013 21:24:18Client ('127.0.0.1', 48570) completed his task
+29 Jul 2013 21:24:18Successfuly stored result for task: demoMatlabTask,./server/tasks/demoMatlabTask.py,./server/tasks/demoMatlabTask
+29 Jul 2013 21:24:18Client ('127.0.0.1', 48570) requested a task, but all tasks are done
+29 Jul 2013 21:24:18Done sending tasks to ('127.0.0.1', 48570)

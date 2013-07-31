@@ -1,0 +1,3 @@
+30 Jul 2013 20:14:24Periodic log entry, there are currently:	 1196 tasks yet to complete
+30 Jul 2013 20:14:24Listening for clients
+30 Jul 2013 20:14:24EVOServer: Listener: Accepting connections on port 4444

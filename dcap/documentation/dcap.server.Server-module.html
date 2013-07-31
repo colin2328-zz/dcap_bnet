@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>dcap.server.Server</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="dcap-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="dcap-module.html">Package&nbsp;dcap</a> ::
+        <a href="dcap.server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;Server
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="dcap.server.Server-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module Server</h1><p class="nomargin-top"><span class="codelink"><a href="dcap.server.Server-pysrc.html">source&nbsp;code</a></span></p>
+<p>Main server module</p>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="dcap.server.Server-module.html#ListenForClients" class="summary-sig-name">ListenForClients</a>(<span class="summary-sig-arg">port</span>,
+        <span class="summary-sig-arg">messageQueue</span>,
+        <span class="summary-sig-arg">taskQueue</span>,
+        <span class="summary-sig-arg">IOLock</span>,
+        <span class="summary-sig-arg">numberOfConnections</span>,
+        <span class="summary-sig-arg">numberOfConnectionsLock</span>,
+        <span class="summary-sig-arg">resultsDirectory</span>)</span><br />
+      Handles connecting clients</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="dcap.server.Server-pysrc.html#ListenForClients">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="dcap.server.Server-module.html#HandleConnection" class="summary-sig-name">HandleConnection</a>(<span class="summary-sig-arg">connection</span>,
+        <span class="summary-sig-arg">clientAdress</span>,
+        <span class="summary-sig-arg">messageQueue</span>,
+        <span class="summary-sig-arg">taskQueue</span>,
+        <span class="summary-sig-arg">IOLock</span>,
+        <span class="summary-sig-arg">numberOfConnections</span>,
+        <span class="summary-sig-arg">numberOfConnectionsLock</span>,
+        <span class="summary-sig-arg">resultsDirectory</span>)</span><br />
+      Handles the connection and communication between the server and an 
+      individual client</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="dcap.server.Server-pysrc.html#HandleConnection">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="signal_handler"></a><span class="summary-sig-name">signal_handler</span>(<span class="summary-sig-arg">s</span>,
+        <span class="summary-sig-arg">frame</span>)</span><br />
+      Make sure to kill all processes in the porcess group as they are our 
+      children and in case of a user interruption (Ctrl-C) children need to
+      be killed to prevent the port from being locked.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="dcap.server.Server-pysrc.html#signal_handler">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="dcap.server.Server-module.html#clientMain" class="summary-sig-name">clientMain</a>(<span class="summary-sig-arg">port</span>,
+        <span class="summary-sig-arg">resultsName</span>,
+        <span class="summary-sig-arg">pathToTasks</span>,
+        <span class="summary-sig-arg">pathToPreviouslyCompletedTasks</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Starts the server.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="dcap.server.Server-pysrc.html#clientMain">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="ListenForClients"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ListenForClients</span>(<span class="sig-arg">port</span>,
+        <span class="sig-arg">messageQueue</span>,
+        <span class="sig-arg">taskQueue</span>,
+        <span class="sig-arg">IOLock</span>,
+        <span class="sig-arg">numberOfConnections</span>,
+        <span class="sig-arg">numberOfConnectionsLock</span>,
+        <span class="sig-arg">resultsDirectory</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="dcap.server.Server-pysrc.html#ListenForClients">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Handles connecting clients</p>
+  <p>This method opens a port to listen for clients. Whenever a new client 
+  connects, a new 'HandleConnection' process is started.</p>
+  <p>Args</p>
+  <ul>
+    <li>
+      port -- the port on which the server should listen for clients
+    </li>
+    <li>
+      messageQueue -- the Queue from which the logger reads
+    </li>
+    <li>
+      taskQueue -- the Queue where all the tasks are located
+    </li>
+    <li>
+      IOLock -- Lock which needs to be aquired before reading or writing 
+      tasks to disc
+    </li>
+    <li>
+      numberOfConnections -- a multiprocessing.value which keeps track of 
+      the current number of connected clients
+    </li>
+    <li>
+      numberOfConnectionsLock -- a multiprocessing.IOLock which must be 
+      aquired when wishing to modify numberOfConnections
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="HandleConnection"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">HandleConnection</span>(<span class="sig-arg">connection</span>,
+        <span class="sig-arg">clientAdress</span>,
+        <span class="sig-arg">messageQueue</span>,
+        <span class="sig-arg">taskQueue</span>,
+        <span class="sig-arg">IOLock</span>,
+        <span class="sig-arg">numberOfConnections</span>,
+        <span class="sig-arg">numberOfConnectionsLock</span>,
+        <span class="sig-arg">resultsDirectory</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="dcap.server.Server-pysrc.html#HandleConnection">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Handles the connection and communication between the server and an 
+  individual client</p>
+  <p>Basic communication process:</p>
+  <ol start="1">
+    <li>
+      EDOClient sends a 'requestTask' type message
+    </li>
+    <li>
+      EDOServer asks ServerSideTaskHandler for a Task, 
+      ServerSideTaskHandler returns a task.py and a data.zip file that have
+      been loaded into memory. It also returns a string that identifies the
+      task
+    </li>
+    <li>
+      EDOServer sends message to client
+    </li>
+    <li>
+      EDOServer waits for reply
+    </li>
+    <li>
+      EDOClient sends back a 'taskCompleted' type message,
+    </li>
+    <li>
+      EDOServer calls ServerSideTaskHandler.taskCompleted with the received
+      resultComputed Message
+    </li>
+    <li>
+      EDOServer continues at step 2
+    </li>
+  </ol>
+  <p>If the connection to the client dies, EDOServer calls 
+  ServerSideTaskHandler.returnTask(taskid)</p>
+  <p>Args</p>
+  <ul>
+    <li>
+      connection -- connection to an individual client
+    </li>
+    <li>
+      clientAdress -- the address of the client
+    </li>
+    <li>
+      messageQueue -- the Queue from which the logger reads
+    </li>
+    <li>
+      taskQueue -- the Queue where all the tasks are located
+    </li>
+    <li>
+      IOLock --
+    </li>
+    <li>
+      numberOfConnections -- a multiprocessing.value which keeps track of 
+      the current number of connected clients
+    </li>
+    <li>
+      numberOfConnectionsLock -- a multiprocessing.IOLock which must be 
+      aquired when wishing to modify numberOfConnections
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="clientMain"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">clientMain</span>(<span class="sig-arg">port</span>,
+        <span class="sig-arg">resultsName</span>,
+        <span class="sig-arg">pathToTasks</span>,
+        <span class="sig-arg">pathToPreviouslyCompletedTasks</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="dcap.server.Server-pysrc.html#clientMain">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Starts the server.</p>
+  <p>Args:</p>
+  <ul>
+    <li>
+      port -- port on which the server should listen
+    </li>
+    <li>
+      resultsName -- name to which to append the currentTime in order to 
+      create a unique string
+    </li>
+    <li>
+      pathToTasks -- path to the tasks file
+    </li>
+    <li>
+      pathToPreviouslyCompletedTasks -- path to a file containing tasks 
+      that have already been completed and should not be executed again.
+    </li>
+  </ul>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="dcap-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Feb 23 22:20:28 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
