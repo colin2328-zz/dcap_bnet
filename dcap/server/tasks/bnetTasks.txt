@@ -1,0 +1,1 @@
+bnetTask,./server/tasks/runBnet.py,./server/tasks/bnetTasks
