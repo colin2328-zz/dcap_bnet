@@ -15,7 +15,7 @@ minTimeSlice = 2;
 maxTimeSlice = 14;
 
 %% Input parametes
-inputFile = 'all_users_dropout_after_week_0_bin5_cut.csv';
+inputFile = 'all_users_dropout_after_week_0_bin5.csv';
 featureSet = [1 6];
 
 %% Cross validation parameters
