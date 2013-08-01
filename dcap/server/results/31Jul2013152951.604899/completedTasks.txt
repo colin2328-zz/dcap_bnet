@@ -1,1 +1,0 @@
-demoMatlabTask,./server/tasks/demoMatlabTask.py,./server/tasks/demoMatlabTask
