@@ -1,0 +1,7 @@
+function [ output_args ] = run_bnet_experiment( input_args )
+%RUN_BNET_EXPERIMENT Summary of this function goes here
+%  runs th
+
+
+end
+
