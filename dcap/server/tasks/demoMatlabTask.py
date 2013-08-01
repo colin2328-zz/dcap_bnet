@@ -18,8 +18,9 @@ print 'running demo script'
 print 'loading transferred data from ', args.dataDirectory
 os.chdir(args.dataDirectory)
 
-print "matlab -nosplash -nodisplay -r \"demoMatlabTask('%s','%s')\"" % (args.dataDirectory, args.dataDirectory)
+matlab_command =  "matlab -nosplash -nodisplay -r \"demoMatlabTask(\'%s\',\'%s\')\"" % (args.dataDirectory, args.resultsDirectory)
+print matlab_command
 
-subprocess.call(["matlab -nosplash -nodisplay -r \"demoMatlabTask(\'%s\',\'%s\')\"" % (args.dataDirectory, args.dataDirectory)],shell=True);
+subprocess.call([matlab_command],shell=True);
 
 print 'client done running demo script'
