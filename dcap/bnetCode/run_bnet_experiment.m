@@ -1,16 +1,24 @@
-function [ result ] = run_bnet_experiment( numTimeSlice, leadTimeSlice, minTimeSlice, maxTimeSlice, inputFile, featureSet, numberToTrain, numberToTest, K, hiddenNodeSupport, intraDag, interDag, maxIterations, stoppingCondition)
+function [ result ] = run_bnet_experiment(num_time_slice, lead_time_slice, min_time_slice, max_time_slice, input_file, feature_set, number_to_train, number_to_test, K, hidden_node_support, intra_dag, inter_dag, max_iterations, stopping_condition)
 %RUN_BNET_EXPERIMENT Summary of this function goes here
 %  Trains a bnet
-result = 0;
+
+%% Result cell
+% add indices
+result = {};
+
 
 
 %% Load data
 input_folder = ('data/');
-[ raw_data ] = load_data( inputFile, input_folder );
+[ raw_data ] = load_data( input_file, input_folder );
 [dropout_yes_bin, dropout_no_bin] = get_dropout_bin_values( raw_data );
-assert(mod(length(raw_data), numTimeSlice) == 0)
+assert(mod(length(raw_data), num_time_slice) == 0)
 number_of_bin = max(max(raw_data));
 
+%% Calculate Cross validation indices
+number_of_rows = countLines([input_folder input_file]);
+N = floor(number_of_rows / num_time_slice); % Size of total data set 
+indices = pick_indices(N, K, number_to_train, number_to_test);
 
 %% Train bnet
 

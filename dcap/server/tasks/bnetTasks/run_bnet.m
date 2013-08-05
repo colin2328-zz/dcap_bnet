@@ -1,4 +1,4 @@
-function demoMatlabTask(parametersDirectory, resultDirectory)
+function run_bnet(parametersDirectory, resultDirectory)
 success = true; %will be set to false if we catch an exception
 warning off MATLAB:dispatcher:nameConflict
 
@@ -14,14 +14,15 @@ try
 	cd ('bnetCode/')
 	addpath(genpath(pwd));
 
-	result = run_bnet_experiment(numTimeSlice, leadTimeSlice, minTimeSlice, maxTimeSlice, inputFile, featureSet, numberToTrain, numberToTest, K, hiddenNodeSupport, intraDag, interDag, maxIterations, stoppingCondition);
+	result = run_bnet_experiment(num_time_slice, lead_time_slice, min_time_slice, max_time_slice, input_file, feature_set, number_to_train, number_to_test, K, hidden_node_support, intra_dag, inter_dag, max_iterations, stopping_condition);
 catch exc
 	errorReport = getReport(exc,'extended');
 	disp(errorReport);
 	success = false;
 end
+return;
 
-cd(resultDirectory)
+cd(resultDirectory);
 
 if success %store results
 	save('result','result');

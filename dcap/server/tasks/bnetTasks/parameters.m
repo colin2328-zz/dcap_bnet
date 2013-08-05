@@ -9,26 +9,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Temporal parameters
-numTimeSlice = 15;
-leadTimeSlice = 1;              % Number of weeks ahead to predict
-minTimeSlice = 2;
-maxTimeSlice = 14;
+num_time_slice = 15;
+lead_time_slice = 1;              % Number of weeks ahead to predict
+min_time_slice = 2;
+max_time_slice = 14;
 
 %% Input parametes
-inputFile = 'all_users_dropout_after_week_0_bin5.csv';
-featureSet = [1 6];
+input_file = 'all_users_dropout_after_week_0_bin5_cut5000.csv';
+feature_set = [1 6];
 
 %% Cross validation parameters
-numberToTrain = 25;             % 0 for full cross validation
-numberToTest = 25;              % 0 for full cross validation
-K = 5;                          % Number of cross validations
+number_to_train = 25;             % 0 for full cross validation
+number_to_test = 25;              % 0 for full cross validation
+K = 5;                          % Number of cross validations. 
 
 %% BNET learning parameters
-hiddenNodeSupport = 11;
-intraDag = 0;
-interDag = 0;
-maxIterations = 2;
-stoppingCondition = 1e-3;
+hidden_node_support = 11;
+intra_dag = 0;
+inter_dag = 0;
+max_iterations = 2;
+stopping_condition = 1e-3;
 
 
 
