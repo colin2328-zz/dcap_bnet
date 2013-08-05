@@ -20,6 +20,18 @@ number_of_rows = countLines([input_folder input_file]);
 N = floor(number_of_rows / num_time_slice); % Size of total data set 
 indices = pick_indices(N, K, number_to_train, number_to_test);
 
+%% Launch matlabpool
+% On Windows we have to delete the \bnt\KPMtools\assert.m, otherwise it
+% causes matlabpool to crash because MATLAB's assert accepts more arguments
+% than BNT's assert.
+if matlabpool('size') > 0 % checking to see if the matlabpool is already open
+    matlabpool close
+end
+number_of_threads = K; % It's a good idea to choose number_of_threads == K
+matlabpool('local', number_of_threads);
+
+indices = pick_indices(N, K, number_to_train, number_to_test);
+
 %% Train bnet
 
 

@@ -15,7 +15,7 @@ function [indices] = pick_indices(N, K, number_to_train, number_to_test)
 indices = {K};
 indices_map = crossvalind('Kfold', N, max(2,K)); % if K ==1, still have both types of indices
 
-for crossvalidation_number = 1:K
+parfor crossvalidation_number = 1:K
     test = (indices_map == crossvalidation_number);
     train = ~test;
 
@@ -32,6 +32,7 @@ for crossvalidation_number = 1:K
     
     % No user in the training set should be in the testing set 
     assert(isempty(intersect(data_train_idx, data_test_idx)))
+    indices{crossvalidation_number} = {};
     indices{crossvalidation_number}.data_train_idx = data_train_idx;
     indices{crossvalidation_number}.data_test_idx = data_test_idx;
 end
