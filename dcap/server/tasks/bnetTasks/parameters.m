@@ -21,7 +21,9 @@ feature_set = [1 6];
 %% Cross validation parameters
 number_to_train = 25;             % 0 for full cross validation
 number_to_test = 25;              % 0 for full cross validation
-K = 5;                          % Number of cross validations. 
+K = 5;                          % Number of cross validations.
+number_of_threads = K;          % It's a good idea to choose number_of_threads == K
+
 
 %% BNET learning parameters
 hidden_node_support = 11;

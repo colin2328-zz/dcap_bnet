@@ -14,7 +14,7 @@ try
 	cd ('bnetCode/')
 	addpath(genpath(pwd));
 
-	result = run_bnet_experiment(num_time_slice, lead_time_slice, min_time_slice, max_time_slice, input_file, feature_set, number_to_train, number_to_test, K, hidden_node_support, intra_dag, inter_dag, max_iterations, stopping_condition);
+	result = run_bnet_experiment(num_time_slice, lead_time_slice, min_time_slice, max_time_slice, input_file, feature_set, number_to_train, number_to_test, K, number_of_threads, hidden_node_support, intra_dag, inter_dag, max_iterations, stopping_condition);
 catch exc
 	errorReport = getReport(exc,'extended');
 	disp(errorReport);
