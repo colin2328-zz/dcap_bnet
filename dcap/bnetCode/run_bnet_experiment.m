@@ -16,11 +16,6 @@ input_folder = ('data/');
 assert(mod(length(raw_data), num_time_slice) == 0)
 number_of_bin = max(max(raw_data));
 
-%% Calculate Cross validation indices
-number_of_rows = countLines([input_folder input_file]);
-N = floor(number_of_rows / num_time_slice); % Size of total data set 
-indices = pick_indices(N, K, number_to_train, number_to_test);
-
 %% Launch matlabpool
 % We may have to delete the \bnt\KPMtools\assert.m, otherwise it
 % causes matlabpool to crash because MATLAB's assert accepts more arguments
@@ -30,6 +25,9 @@ if matlabpool('size') > 0 % checking to see if the matlabpool is already open
 end
 matlabpool('local', number_of_threads);
 
+%% Calculate Cross validation indices
+number_of_rows = countLines([input_folder input_file]);
+N = floor(number_of_rows / num_time_slice); % Size of total data set 
 indices = pick_indices(N, K, number_to_train, number_to_test);
 
 %% Train bnet
