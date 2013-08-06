@@ -20,7 +20,6 @@ catch exc
 	disp(errorReport);
 	success = false;
 end
-return;
 
 cd(resultDirectory);
 
