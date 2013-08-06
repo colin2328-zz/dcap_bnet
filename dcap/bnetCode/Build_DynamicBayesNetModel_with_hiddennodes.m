@@ -1,4 +1,4 @@
-function [learnt_bnet, learnt_engine, loglik_trace, mapFeatureNameToId]=Build_DynamicBayesNetModel_with_hiddennodes_dropout(data,observableNodeSupport,varargin)
+function [learnt_bnet, learnt_engine, loglik_trace, mapFeatureNameToId]=Build_DynamicBayesNetModel_with_hiddennodes(data,observableNodeSupport,varargin)
 %%
 % This code forms the Dynamic bayes net model (state space model) for a hidden variable
 % structure. The code builds around the BNT toolbox and uses the inference
@@ -38,8 +38,6 @@ elseif exist('lib', 'dir')
 else
     error('Cannot find BNT folder')
 end
-
-exit;
 
 
 %% Input parsing

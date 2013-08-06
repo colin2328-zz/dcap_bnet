@@ -16,7 +16,7 @@ max_time_slice = 14;
 
 %% Input parametes
 input_file = 'all_users_dropout_after_week_0_bin5_cut5000.csv';
-feature_set = [1 6];
+features_set = [1 6];
 
 %% Cross validation parameters
 number_to_train = 25;             % 0 for full cross validation
