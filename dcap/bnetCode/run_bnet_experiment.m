@@ -28,11 +28,6 @@ number_of_rows = countLines([input_folder input_file]);
 N = floor(number_of_rows / num_time_slice); % Size of total data set
 launch_matlabpool(number_of_threads);
 indices = pick_indices(N, K, number_to_train, number_to_test);
-for crossvalidation_number = 1:K
-   cell = {};
-   cell.indic
-   result{crossvalidation_number} = cell;
-end
 
 
 %% Train bnet
