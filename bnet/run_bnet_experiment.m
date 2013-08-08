@@ -2,6 +2,8 @@ function [ result ] = run_bnet_experiment(parameters)
 %RUN_BNET_EXPERIMENT Summary of this function goes here
 %  Trains a bnet
 tic;
+disp('got here')
+return;
 
 %% Initialize result cell
 % result cell contains one struct for each cross validation run.

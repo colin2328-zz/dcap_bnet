@@ -1,18 +1,14 @@
-function [] = run_bnet(parametersDirectory, resultDirectory)
+function [] = run_bnet(bnetDirectory, resultDirectory)
 success = true; %will be set to false if we catch an exception
 warning off
 
 try 
-	%load the parameters that were transferred
-	cd(parametersDirectory);
+	%add codebase to path
+	cd(bnetDirectory);
+
+	%load the parameters
 	set_parameters()
 
-	%add codebase to path
-	workingDir = pwd;
-	index = regexp(workingDir,'dcap/')+4; % cd to dcap folder
-	cd(workingDir(1:index));
-	cd ('bnetCode/')
-	addpath(genpath(pwd));
 	result = run_bnet_experiment(parameters);
 catch exc
 	errorReport = getReport(exc,'extended');

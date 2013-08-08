@@ -1,1 +1,1 @@
-bnetTask,./server/tasks/runBnet.py,./server/tasks/bnetTasks
+bnetTask,../tasks/run_bnet.py,../bnet/
