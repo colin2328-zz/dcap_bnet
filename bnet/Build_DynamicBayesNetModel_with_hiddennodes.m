@@ -1,4 +1,4 @@
-function [learnt_bnet, learnt_engine, loglik_trace, mapFeatureNameToId]=Build_DynamicBayesNetModel_with_hiddennodes(data,observableNodeSupport,varargin)
+function [learnt_engine, loglik_trace]=Build_DynamicBayesNetModel_with_hiddennodes(data,observableNodeSupport,varargin)
 %%
 % This code forms the Dynamic bayes net model (state space model) for a hidden variable
 % structure. The code builds around the BNT toolbox and uses the inference
@@ -179,7 +179,7 @@ cases = Format_data_DBNT(data,number_of_time_slices,nodes_per_slice,observable_n
 
 %given data as cases whose structure is defined in a different function.
 %Here we are trying to learn the params. 
-[learnt_bnet, loglik_trace, learnt_engine] = learn_params_dbn_em(engine, cases, 'max_iter', input.maximumNumberOfIterations);
+[~, loglik_trace, learnt_engine] = learn_params_dbn_em(engine, cases, 'max_iter', input.maximumNumberOfIterations);
 
 
 
