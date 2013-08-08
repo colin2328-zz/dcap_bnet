@@ -14,4 +14,5 @@ def processResult(messageQueue, IOLock, pathToReceivedResult):
         - IOLock: -- A lock that should be acquired before any modifications to tasks and data are made to prevent race conditions. Note that if updating tasks takes too long, this will be a bottleneck
         - pathToReceivedResult: -- the path to where the most recent task was stored
     '''
+    print 'completed task- need to send somewhere'
     pass # currently do nothing. This method should eventually implement boosting by updating a vector that 

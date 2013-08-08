@@ -4,7 +4,6 @@ Python script to run Bnet matlab script
 Author: Colin Taylor <colin2328@gmail.com>
 Date: 7/31/2013
 '''
-print 'got here'
 import argparse
 import os
 import subprocess

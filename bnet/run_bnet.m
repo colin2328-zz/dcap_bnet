@@ -15,7 +15,6 @@ catch exc
 	disp(errorReport);
 	success = false;
 end
-return;
 cd(resultDirectory);
 
 if success %store results
