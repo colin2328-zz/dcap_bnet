@@ -2,10 +2,11 @@
 
 #script takes one argument: the number of instances to start
 
-HOME=/home/ubuntu
+HOME=/home/colin/evo/dcap_bnet
+#HOME=/home/ubuntu
 
 #==========Parameters
-CERT=alexwaldin
+CERT=colin
 TYPE=m1.medium
 AMI=ami-00000073
 SERVER_SCRIPT_LOCATION=../dcap/
@@ -33,7 +34,7 @@ cd $HOME
 
 #set environment for the euca2tools
 . $HOME/ec2rc.sh #. is source, here source ec2rc script, make sure location is correct
-IP=$(curl --retry 3 --retry-delay 10 http://169.254.169.254/latest/meta-data/local-ipv4) #gets my ip address
+IP=$(curl --retry 3 --retry-delay 10 ipecho.net/plain) #gets my ip address
 
 echo -n "$IP" > $HOME/serverIP.txt #puts ip address in info.txt
 echo "Our address is $IP" 

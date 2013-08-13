@@ -1,4 +1,4 @@
-function [learnt_engine, loglik_trace]=Build_DynamicBayesNetModel_with_hiddennodes(data,observableNodeSupport,varargin)
+function [learnt_engine, loglik_trace]=Build_DynamicBayesNetModel_with_hiddennodes(data, parameters, observableNodeSupport, priorType)
 %%
 % This code forms the Dynamic bayes net model (state space model) for a hidden variable
 % structure. The code builds around the BNT toolbox and uses the inference
@@ -7,8 +7,8 @@ function [learnt_engine, loglik_trace]=Build_DynamicBayesNetModel_with_hiddennod
 % Any Scale Learning for All Group- MIT
 %
 % Optional Parameters:
-% - hiddenVariableSupport: number of states the hidden variable can take on
-% - maximumNumberOfIterations: The number of iterations for expectation maximization algorithm
+% - parameters.hidden_node_support: number of states the hidden variable can take on
+% - parameters.max_iterations: The number of iterations for expectation maximization algorithm
 % - featureNames: The name of the features.
 %
 % Use:
@@ -16,14 +16,6 @@ function [learnt_engine, loglik_trace]=Build_DynamicBayesNetModel_with_hiddennod
 % uncompress it in this folder (the folder must be 'bnt')
 %
 %
-% Examples: 
-% load TestData.mat
-% Build_DynamicBayesNetModel_with_hiddennodes(data, [4 4])
-% Build_DynamicBayesNetModel_with_hiddennodes(data, [4 4], 'featureNames', ['a', 'b'])
-% Build_DynamicBayesNetModel_with_hiddennodes(data, [4 4], 'featureNames', ['a', 'b'])
-% Build_DynamicBayesNetModel_with_hiddennodes(data, [4 4], 'featureNames', ['a', 'b'], 'hiddenVariableSupport', 7)
-% Build_DynamicBayesNetModel_with_hiddennodes(data, [4 4], 'featureNames', ['a', 'b'], 'hiddenVariableSupport', 7, 'maximumNumberOfIterations', 10)
-%I
 % Documentation:
 %  - Dynamic Bayesian Networks specific: http://bnt.googlecode.com/svn/trunk/docs/usage_dbn.html  
 %  - The entire Bayes Net Toolbox:  http://bnt.googlecode.com/svn/trunk/docs/usage.html
@@ -33,35 +25,19 @@ function [learnt_engine, loglik_trace]=Build_DynamicBayesNetModel_with_hiddennod
 % Search to import bnt
 if exist('bnt', 'dir')
     addpath(genpath('bnt'));
-elseif exist('lib', 'dir')
-    addpath(genpath('lib'));
 else
     error('Cannot find BNT folder')
 end
 
 
-%% Input parsing
-% create input Parser, for a tutorial on the input parser see http://blogs.mathworks.com/community/2012/02/13/parsing-inputs/
-p = inputParser;
-
-%add required Arguments
-p.addRequired('data',@(x) assert(~isempty(x) && ~isempty(x{1}),'data not specified'));
-p.addRequired('observableNodeSupport', @(x) true); % We cannot compute it automatically using feature's values because feature's values do not necessarily contain all possible values.
-
-%add optional Arguments
-p.addParamValue('featureNames','{ }',@(x) assert(length(x) == size(data{1},2),'must have an equal number of feature Names as columns in each data matrix'));
-p.addParamValue('hiddenVariableSupport', 7, @(x) assert(x>0 && x == floor(x),'hiddenVariableSupport must be an integer > 0'));
-p.addParamValue('maximumNumberOfIterations',100, @(x) assert(x>0 && x == floor(x),'hiddenVariableSupport must be an integer > 0'));
-p.addParamValue('priorType','dirichlet',@(x) true);
-
-p.parse(data,observableNodeSupport,varargin{:});
-input = p.Results;
-
-
 %% ------additional assertions------
+assert(parameters.max_iterations > 0 && parameters.max_iterations == floor(parameters.max_iterations), 'max_iterations must be an integer > 0')
+assert(parameters.hidden_node_support > 0 && parameters.hidden_node_support == floor(parameters.hidden_node_support), 'hidden_node_support must be an integer > 0')
+
+
 %BNT toolbox does not support discrete values of zero
-for i = 1:length(input.data)
-    assert(sum(sum(input.data{i}==0)) == 0,'BNT toolbox does not support discrete values of zero');
+for i = 1:length(data)
+    assert(sum(sum(data{i}==0)) == 0,'BNT toolbox does not support discrete values of zero');
 end
 %----------------------------------
 
@@ -82,23 +58,21 @@ nodes_per_slice = numberOfObservableNodes + numberOfHiddenNodes;
 %this information has to be defined only per slice
 
 % Determine support for the observable nodes
-if(isscalar(input.observableNodeSupport)) 
-    observable_node_support = input.observableNodeSupport * ones(1, numberOfObservableNodes);
+if(isscalar(observableNodeSupport)) 
+    observable_node_support = observableNodeSupport * ones(1, numberOfObservableNodes);
 else
-    assert(length(input.observableNodeSupport) == numberOfObservableNodes);
-    observable_node_support = input.observableNodeSupport;
+    assert(length(observableNodeSupport) == numberOfObservableNodes);
+    observable_node_support = observableNodeSupport;
 end
 
 
 
-support_for_each_node = [input.hiddenVariableSupport, observable_node_support];
+support_for_each_node = [parameters.hidden_node_support, observable_node_support];
 
 
 discrete_valued_nodes = [1:nodes_per_slice]; % To be modified here for continuous variables
 hidden_nodes_ids = [1];
 observable_nodes_ids = 2:nodes_per_slice;
-% input.featureNames
-mapFeatureNameToId = containers.Map(input.featureNames, observable_nodes_ids);
 
 % Specifying the structure between the variables 
 dag_between_slices = zeros(nodes_per_slice);
@@ -109,8 +83,6 @@ dag_within_a_slice(hidden_nodes_ids, observable_nodes_ids) = 1; % the hidden nod
 
 
 %define equivalence classes
-%eclass_first_time_slice=[1,3:numberOfObservableNodes+2];
-%eclass_second_time_slice=[2,3:numberOfObservableNodes+2];  %from third time slice onwards it uses the same eclass as second
 eclass_first_time_slice=[1:nodes_per_slice];
 eclass_second_time_slice=[1:nodes_per_slice]+nodes_per_slice;  %from third time slice onwards it uses the same eclass as second
 all_eclass=[eclass_first_time_slice eclass_second_time_slice];
@@ -118,18 +90,18 @@ o_node_eclass = setdiff(all_eclass,[1, 1+nodes_per_slice]);
 
 
 %setting initial parameters
-p0 = normalise(rand(input.hiddenVariableSupport,1));
-transmission0 = mk_stochastic(rand(input.hiddenVariableSupport,input.hiddenVariableSupport));
+p0 = normalise(rand(parameters.hidden_node_support,1));
+transmission0 = mk_stochastic(rand(parameters.hidden_node_support,parameters.hidden_node_support));
 
 % observation0 is the CPD of class 1 (eclass_first_time_slice) and class 2
 % (eclass_second_time_slice) (??)
-%observation0 = mk_stochastic(rand(input.hiddenVariableSupport,observableNodeSupport));
+%observation0 = mk_stochastic(rand(parameters.hidden_node_support,observableNodeSupport));
 % Added by Kalyan - Verified by Alex- Sunday April 21st, 2013
-if(isscalar(input.observableNodeSupport))
-    observation0 = mk_stochastic(rand(input.hiddenVariableSupport,observable_node_support(1)));
+if(isscalar(observableNodeSupport))
+    observation0 = mk_stochastic(rand(parameters.hidden_node_support,observable_node_support(1)));
 else 
     for k=1:1:length(observable_nodes_ids)
-        observation0{k}=mk_stochastic(rand(input.hiddenVariableSupport,observable_node_support(k))); %#ok<AGROW>
+        observation0{k}=mk_stochastic(rand(parameters.hidden_node_support,observable_node_support(k))); %#ok<AGROW>
     end 
 end 
 
@@ -147,21 +119,21 @@ bnet = mk_dbn(dag_within_a_slice, dag_between_slices, support_for_each_node, 'di
 
 for i=1:max(all_eclass)
     if i == 1
-        bnet.CPD{i} = tabular_CPD(bnet, i, p0,'prior_type',input.priorType);
+        bnet.CPD{i} = tabular_CPD(bnet, i, p0,'prior_type',priorType);
     
     elseif i == 1+nodes_per_slice
-        bnet.CPD{i} = tabular_CPD(bnet,i,transmission0,'prior_type',input.priorType);
+        bnet.CPD{i} = tabular_CPD(bnet,i,transmission0,'prior_type',priorType);
         
     else
-        if(isscalar(input.observableNodeSupport))
-            bnet.CPD{i} = tabular_CPD(bnet,i,observation0','prior_type',input.priorType);
+        if(isscalar(observableNodeSupport))
+            bnet.CPD{i} = tabular_CPD(bnet,i,observation0','prior_type',priorType);
         else
             ind=find(o_node_eclass==i);
             % We compute some kind of modulo
             if ind>numberOfObservableNodes
                 ind=ind-numberOfObservableNodes;
             end
-            bnet.CPD{i} = tabular_CPD(bnet,i,observation0{ind}','prior_type',input.priorType);
+            bnet.CPD{i} = tabular_CPD(bnet,i,observation0{ind}','prior_type',priorType);
         end 
     end
 end
@@ -179,7 +151,7 @@ cases = Format_data_DBNT(data,number_of_time_slices,nodes_per_slice,observable_n
 
 %given data as cases whose structure is defined in a different function.
 %Here we are trying to learn the params. 
-[~, loglik_trace, learnt_engine] = learn_params_dbn_em(engine, cases, 'max_iter', input.maximumNumberOfIterations);
+[~, loglik_trace, learnt_engine] = learn_params_dbn_em(engine, cases, 'max_iter', parameters.max_iterations);
 
 
 
