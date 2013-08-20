@@ -2,7 +2,9 @@
 
 #script takes one argument: the number of instances to start
 
-HOME=/root
+# HOME=/root
+/afs/csail.mit.edu/u/c/colin_t
+
 
 #==========Parameters
 CERT=colin
@@ -11,7 +13,7 @@ AMI=ami-00000023
 SERVER_SCRIPT_LOCATION=../dcap/
 SERVER_SCRIPT=RunServer.py 
 PART_HANDLER=$(readlink -f part_handler.py)
-USER=ubuntu
+USER=root
 RUN_CMD=euca-run-instances 
 REPORT_DIR=$HOME/ips
 TIMEOUT=1600

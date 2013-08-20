@@ -26,7 +26,7 @@ def processResult(messageQueue, IOLock, pathToReceivedResult):
     #sends results to
     timeName = datetime.datetime.now().strftime('%d%b%Y%H%M%S.%f/')
     pathToReceivedResult = pathToReceivedResult + '/..'
-    pathToSendResult = '../results/' + timeName
+    pathToSendResult = '/afs/csail.mit.edu/group/EVO-DesignOpt/bnet/results/' + timeName
 
     sendResults(pathToReceivedResult , pathToSendResult)
     messageQueue.put(UtilityFunctions.createLogEntry('inf','sending results from ' +  pathToReceivedResult + ' to ' + pathToSendResult))
