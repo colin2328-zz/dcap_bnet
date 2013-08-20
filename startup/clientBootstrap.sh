@@ -1,10 +1,9 @@
 #!/bin/bash
-USER=ubuntu
+USER=root
 CERT=colin
 CLIENTSCRIPT=RunClient.py #EchoTestClient.py
 PORT=4444
-# HOME=/home/ubuntu
-HOME=/home/colin/evo/dcap_bnet
+HOME=/root
 NODE_CODE_DIR = bnet
 
 cd $HOME

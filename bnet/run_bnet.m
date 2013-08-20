@@ -1,13 +1,14 @@
-function [] = run_bnet(bnetDirectory, resultDirectory)
+function [] = run_bnet(dataDirectory, resultDirectory)
 success = true; %will be set to false if we catch an exception
 warning off
 
 try 
 	%add codebase to path
-	cd(bnetDirectory);
+	cd(dataDirectory);
 
 	%load the parameters
 	set_parameters()
+	which 'run_bnet_experiment'
 
 	result = run_bnet_experiment(parameters);
 catch exc

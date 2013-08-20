@@ -2,13 +2,12 @@
 
 #script takes one argument: the number of instances to start
 
-HOME=/home/colin/evo/dcap_bnet
-#HOME=/home/ubuntu
+HOME=/root
 
 #==========Parameters
 CERT=colin
-TYPE=m1.medium
-AMI=ami-00000073
+TYPE=m1.8core
+AMI=ami-00000023
 SERVER_SCRIPT_LOCATION=../dcap/
 SERVER_SCRIPT=RunServer.py 
 PART_HANDLER=$(readlink -f part_handler.py)
