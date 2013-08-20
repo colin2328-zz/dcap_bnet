@@ -3,7 +3,7 @@
 #script takes one argument: the number of instances to start
 
 # HOME=/root
-/afs/csail.mit.edu/u/c/colin_t
+HOME=/afs/csail.mit.edu/u/c/colin_t/dcap_bnet
 
 
 #==========Parameters
