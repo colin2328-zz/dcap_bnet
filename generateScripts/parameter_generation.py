@@ -41,6 +41,7 @@ assert generate_dir[-15:] == 'generateScripts', 'Script must be called from gene
 tasks_dir =  os.path.join(generate_dir[:-15], 'tasks')
 assert os.path.isdir(tasks_dir), 'Tasks directory must be exist!'
 os.chdir(tasks_dir)
+tasks_file = open("bnetTasks.txt", "w")
 
 for data in data_list: #loop over data_list
 	for features in features_list: #loop over features_list
@@ -50,10 +51,9 @@ for data in data_list: #loop over data_list
 			# creates folder in tasks/ with the taskName
 			folder_name = 'bnetTask_features' + underscore(features) + 'support' + str(support) + '_file_' + str(data)[:-4] 
 			create_dir_if_not_exists(folder_name)
-			os.chdir(folder_name)
 
 			# adds set_parameters.m to folder
-			fo = open("set_parameters.m", "w")
+			fo = open(folder_name + "/set_parameters.m", "w")
 
 			temporal_parameters = '''
 %% Temporal parameters
@@ -71,8 +71,8 @@ parameters.features_set = %s;
 
 			cross_validation_parameters = '''
 %% Cross validation parameters
-parameters.number_to_train = 25;             % 0 for full cross validation
-parameters.number_to_test = 25;              % 0 for full cross validation
+parameters.number_to_train = 0;             % 0 for full cross validation
+parameters.number_to_test = 0;              % 0 for full cross validation
 parameters.K = 5;                          % Number of cross validations.
 parameters.number_of_threads = parameters.K;          % It's a good idea to choose number_of_threads == K
 '''
@@ -82,7 +82,7 @@ parameters.number_of_threads = parameters.K;          % It's a good idea to choo
 parameters.hidden_node_support = %s;
 parameters.intra_dag = 0;
 parameters.inter_dag = 0;
-parameters.max_iterations = 2;
+parameters.max_iterations = 100;
 parameters.stopping_condition = 1e-3;
 parameters.train_anneal_rate = 0.8;
 ''' %(support)
@@ -92,13 +92,15 @@ parameters.train_anneal_rate = 0.8;
 			fo.write( input_parameters);
 			fo.write( cross_validation_parameters);
 			fo.write( bnet_learning_parameters);
+			fo.close()
 
 			# concatanates a row to bnetTasks with a name, path to py, and folder
-
-			
-			break
-		break
-	break
+			task = '%s,../tasks/run_bnet.py,../tasks/%s\n' %(folder_name, folder_name)
+			tasks_file.write(task)
+	# 		break
+	# 	break
+	# break
+tasks_file.close()
 
 
 
