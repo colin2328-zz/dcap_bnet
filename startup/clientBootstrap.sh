@@ -7,7 +7,7 @@ HOME=/root
 NODE_CODE_DIR = bnet
 
 cd $HOME
-
+touch /root/test.txt
 #read ip from text file
 SERVERIP=$(cat serverIP.txt)
 

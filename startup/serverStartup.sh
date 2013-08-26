@@ -42,7 +42,7 @@ echo "Our address is $IP"
 write-mime-multipart -z -o $HOME/multi.txt.gz $PART_HANDLER:text/part-handler $HOME/serverIP.txt:text/plain $HOME/$CERT.pem:text/plain $WORKING_DIR/clientBootstrap.sh:text/x-shellscript #creating an archive file for uploading to the cloud controller
 
 echo "write-mime-multipart -z -o $HOME/multi.txt.gz $PART_HANDLER:text/part-handler $HOME/serverIP.txt:text/plain $HOME/$CERT.pem:text/plain $WORKING_DIR/clientBootstrap.sh:text/x-shellscript"
-
+exit
 #echo "Starting Instances"
 INSTANCE=$($RUN_CMD -k $CERT -n $NUM $AMI -t $TYPE -f $HOME/multi.txt.gz | grep i- | cut -f 2)
 # set INSTANCE to return of command encapsulated by $() . Instances will be set to all ids that were started
