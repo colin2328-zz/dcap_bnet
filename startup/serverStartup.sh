@@ -2,8 +2,8 @@
 
 #script takes one argument: the number of instances to start
 
-# HOME=/root
-HOME=/afs/csail.mit.edu/u/c/colin_t/dcap_bnet
+HOME=/home/ubuntu
+#HOME=/afs/csail.mit.edu/u/c/colin_t/dcap_bnet
 
 
 #==========Parameters
@@ -13,14 +13,9 @@ AMI=ami-00000023
 SERVER_SCRIPT_LOCATION=../dcap/
 SERVER_SCRIPT=RunServer.py 
 PART_HANDLER=$(readlink -f part_handler.py)
-USER=root
 RUN_CMD=euca-run-instances 
-REPORT_DIR=$HOME/ips
-TIMEOUT=1600
 SERVERPORT=4444
 #=====================
-
-
 
 
 WORKING_DIR=$(pwd)
@@ -34,15 +29,15 @@ NAME=$2
 cd $HOME
 
 #set environment for the euca2tools
-. $HOME/ec2rc.sh #. is source, here source ec2rc script, make sure location is correct
+source $HOME/ec2rc.sh #. is source, here source ec2rc script, make sure location is correct
 IP=$(curl --retry 3 --retry-delay 10 ipecho.net/plain) #gets my ip address
 
 echo -n "$IP" > $HOME/serverIP.txt #puts ip address in info.txt
 echo "Our address is $IP" 
 write-mime-multipart -z -o $HOME/multi.txt.gz $PART_HANDLER:text/part-handler $HOME/serverIP.txt:text/plain $HOME/$CERT.pem:text/plain $WORKING_DIR/clientBootstrap.sh:text/x-shellscript #creating an archive file for uploading to the cloud controller
 
-echo "write-mime-multipart -z -o $HOME/multi.txt.gz $PART_HANDLER:text/part-handler $HOME/serverIP.txt:text/plain $HOME/$CERT.pem:text/plain $WORKING_DIR/clientBootstrap.sh:text/x-shellscript"
-exit
+#echo "write-mime-multipart -z -o $HOME/multi.txt.gz $PART_HANDLER:text/part-handler $HOME/serverIP.txt:text/plain $HOME/$CERT.pem:text/plain $WORKING_DIR/clientBootstrap.sh:text/x-shellscript"
+
 #echo "Starting Instances"
 INSTANCE=$($RUN_CMD -k $CERT -n $NUM $AMI -t $TYPE -f $HOME/multi.txt.gz | grep i- | cut -f 2)
 # set INSTANCE to return of command encapsulated by $() . Instances will be set to all ids that were started
@@ -54,7 +49,7 @@ echo "$RUN_CMD -k $CERT -n $NUM $AMI -t $TYPE -f $HOME/multi.txt.gz"
 echo "Started $INSTANCE"
 
 ##################### FOR STARTING JUST NODES ########################
-#exit 0
+exit 0
 
 # change to dcap directory
 cd $WORKING_DIR/$SERVER_SCRIPT_LOCATION

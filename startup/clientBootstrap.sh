@@ -1,13 +1,13 @@
 #!/bin/bash
-USER=root
+USER=ubuntu
 CERT=colin
 CLIENTSCRIPT=RunClient.py #EchoTestClient.py
 PORT=4444
-HOME=/root
+HOME=/home/ubuntu
 NODE_CODE_DIR = bnet
 
 cd $HOME
-touch /root/test.txt
+
 #read ip from text file
 SERVERIP=$(cat serverIP.txt)
 
