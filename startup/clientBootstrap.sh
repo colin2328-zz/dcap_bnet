@@ -1,18 +1,20 @@
 #!/bin/bash
-USER=ubuntu
+USER=root
 CERT=colin
 CLIENTSCRIPT=RunClient.py #EchoTestClient.py
 PORT=4444
-HOME=/home/ubuntu
-NODE_CODE_DIR = bnet
+HOME=/root
+NODE_CODE_DIR=bnet
 
 cd $HOME
 
 #read ip from text file
 SERVERIP=$(cat serverIP.txt)
 
+chmod 400 colin.pem
+
 #copy bnet code- the code the client will run is in this directory
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $CERT.pem -r $USER@$SERVERIP:$HOME/$NODE_CODE_DIR $HOME
+scp -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $CERT.pem -r $USER@$SERVERIP:$HOME/dcap_bnet/$NODE_CODE_DIR $HOME
 # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $CERT.pem $USER@$SERVERIP:/mnt/MIMIC_AGGREGATED.mat /mnt/
 
 cd $NODE_CODE_DIR

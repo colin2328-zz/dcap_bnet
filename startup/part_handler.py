@@ -17,7 +17,7 @@ def handle_part(data, ctype, filename, payload):
 
     print "==== received ctype=%s filename=%s ====" % (ctype,filename)
     import os
-    new_file = "/home/ubuntu/%s" % (filename)
+    new_file = "/root/%s" % (filename)
     lines = payload.splitlines(True)
     print lines
     print " == Creating file %s" % (new_file)

@@ -2,7 +2,7 @@
 
 #script takes one argument: the number of instances to start
 
-HOME=/home/ubuntu
+HOME=/root/dcap_bnet
 #HOME=/afs/csail.mit.edu/u/c/colin_t/dcap_bnet
 
 
@@ -10,11 +10,12 @@ HOME=/home/ubuntu
 CERT=colin
 TYPE=m1.8core
 AMI=ami-00000023
-SERVER_SCRIPT_LOCATION=../dcap/
+SERVER_SCRIPT_LOCATION=../dcap
 SERVER_SCRIPT=RunServer.py 
 PART_HANDLER=$(readlink -f part_handler.py)
 RUN_CMD=euca-run-instances 
 SERVERPORT=4444
+TASKFILE='../tasks/testBnetTasks.txt'
 #=====================
 
 
@@ -56,7 +57,7 @@ cd $WORKING_DIR/$SERVER_SCRIPT_LOCATION
 
 echo "Starting server script..."
 #==========run server scripts here:
-python $SERVER_SCRIPT -p $SERVERPORT -n $NAME
+python $SERVER_SCRIPT -p $SERVERPORT -n $NAME -t $TASKFILE
 #===========
 cd $HOME
 
