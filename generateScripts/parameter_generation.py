@@ -25,7 +25,7 @@ def underscore(arr):
 
 def create_dir_if_not_exists(directory):
 	if not os.path.isdir(directory):
-            os.makedirs(directory)
+		os.makedirs(directory)
 
 #get the features_list
 feature_set = set([2, 4, 6, 8, 10])
@@ -37,8 +37,8 @@ hidden_node_support_list = [7, 9, 11, 13, 15, 19, 21, 23, 25]
 data_list = ['all_users_bin5.csv', 'all_users_bin10.csv']
 
 generate_dir =  os.getcwd()
-assert generate_dir[-15:] == 'generateScripts', 'Script must be called from generateScripts directory!'
-tasks_dir =  os.path.join(generate_dir[:-15], 'tasks')
+assert os.path.basename(generate_dir) == 'generateScripts', 'Script must be called from generateScripts directory!'
+tasks_dir =  os.path.join(os.path.dirname(generate_dir), 'tasks')
 assert os.path.isdir(tasks_dir), 'Tasks directory must be exist!'
 os.chdir(tasks_dir)
 tasks_file = open("bnetTasks.txt", "w")
