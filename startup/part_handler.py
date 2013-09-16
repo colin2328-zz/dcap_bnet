@@ -8,6 +8,8 @@ def handle_part(data, ctype, filename, payload):
     # filename: the filename for the part, or dynamically generated part if
     #           no filename is given attribute is present
     # payload: the content of the part (empty for begin or end)
+    home_directory = '/root'
+
     if ctype == "__begin__":
        print "my handler is beginning"
        return
@@ -17,7 +19,7 @@ def handle_part(data, ctype, filename, payload):
 
     print "==== received ctype=%s filename=%s ====" % (ctype,filename)
     import os
-    new_file = "/root/%s" % (filename)
+    new_file = "%s/%s" % (home_directory, filename)
     lines = payload.splitlines(True)
     print lines
     print " == Creating file %s" % (new_file)

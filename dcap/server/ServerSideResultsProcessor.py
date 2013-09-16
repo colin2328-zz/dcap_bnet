@@ -8,6 +8,7 @@ import os
 import shutil
 import datetime
 from common import UtilityFunctions
+from traceback import format_exc
 
 
 def processResult(messageQueue, IOLock, pathToReceivedResult):
@@ -28,8 +29,12 @@ def processResult(messageQueue, IOLock, pathToReceivedResult):
     pathToReceivedResult = pathToReceivedResult + '/..'
     pathToSendResult = '/afs/csail.mit.edu/group/EVO-DesignOpt/bnet/results/' + timeName
 
-    #sendResults(pathToReceivedResult , pathToSendResult)
-    messageQueue.put(UtilityFunctions.createLogEntry('inf','sending results from ' +  pathToReceivedResult + ' to ' + pathToSendResult))
+    try:
+        # sendResults(pathToReceivedResult , pathToSendResult)
+        pass
+
+    except Exception as e:
+        messageQueue.put(UtilityFunctions.createLogEntry('err',"Could not send results to %s because: " % (pathToSendResult) + str(e) + format_exc()))
 
 
 def sendResults(pathToReceivedResult, pathToSendResult):
@@ -39,4 +44,5 @@ def sendResults(pathToReceivedResult, pathToSendResult):
     	- pathToReceivedResult: -- the path to where the most recent task was stored
         - pathToSendResult: -- path where results should be sent
     '''
+    messageQueue.put(UtilityFunctions.createLogEntry('inf','sending results from ' +  pathToReceivedResult + ' to ' + pathToSendResult))
     shutil.copytree(pathToReceivedResult , pathToSendResult)

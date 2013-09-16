@@ -14,11 +14,13 @@ parser.add_argument('resultsDirectory',type=str)
 args = parser.parse_args()
 print 'running Bnet'
 
+parent_dir = os.getcwd() + '/../bnet'
+print "adding parent directory (%s) to matlab path" % (parent_dir)
 
 print 'loading transferred data from ', args.parametersDirectory
 os.chdir(args.parametersDirectory)
 
-matlab_command =  "matlab -nosplash -nodisplay -r \"run_bnet(\'%s\',\'%s\')\"" % (args.parametersDirectory, args.resultsDirectory)
+matlab_command =  "matlab -nosplash -nodisplay -r \"addpath(genpath(\'%s\')); run_bnet(\'%s\',\'%s\')\"" % (parent_dir,args.parametersDirectory, args.resultsDirectory)
 print matlab_command
 
 subprocess.call([matlab_command],shell=True);

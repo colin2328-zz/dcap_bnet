@@ -2,64 +2,60 @@
 
 #script takes one argument: the number of instances to start
 
-HOME=/root/dcap_bnet
-#HOME=/afs/csail.mit.edu/u/c/colin_t/dcap_bnet
-
-
 #==========Parameters
+HOME=/root
+# HOME=/afs/csail.mit.edu/u/c/colin_t
+DCAP_BNET_DIR=$HOME/dcap_bnet
+STARTUP_SCRIPT_DIR=$DCAP_BNET_DIR/startup
 CERT=colin
 TYPE=m1.8core
 AMI=ami-00000023
-SERVER_SCRIPT_LOCATION=../dcap
-SERVER_SCRIPT=RunServer.py 
+DCAP_SERVER_SCRIPT_DIR=$DCAP_BNET_DIR/dcap
+DCAP_SERVER_SCRIPT=RunServer.py 
 PART_HANDLER=$(readlink -f part_handler.py)
-RUN_CMD=euca-run-instances 
-SERVERPORT=4444
+EUCA_INITIALIZE_INSTANCES_CMD=euca-run-instances 
+SERVER_PORT=4444
 TASKFILE='../tasks/testBnetTasks.txt'
+# TASKFILE='../tasks/bnetTasks.txt'
 #=====================
 
 
-WORKING_DIR=$(pwd)
 NUM=$1
 #$1 is the first argument that is passed in to the shellscript. It is the number of instances to launch
 NAME=$2
-# echo "synchronizing times"
-# synchronize our time before we start
-# sudo /usr/sbin/ntpdate-debian -b
 
-cd $HOME
+cd $DCAP_BNET_DIR
 
 #set environment for the euca2tools
-source $HOME/ec2rc.sh #. is source, here source ec2rc script, make sure location is correct
+source $DCAP_BNET_DIR/ec2rc.sh #. is source, here source ec2rc script, make sure location is correct
 IP=$(curl --retry 3 --retry-delay 10 ipecho.net/plain) #gets my ip address
 
-echo -n "$IP" > $HOME/serverIP.txt #puts ip address in info.txt
+echo -n "$IP" > $DCAP_BNET_DIR/serverIP.txt #puts ip address in info.txt
 echo "Our address is $IP" 
-write-mime-multipart -z -o $HOME/multi.txt.gz $PART_HANDLER:text/part-handler $HOME/serverIP.txt:text/plain $HOME/$CERT.pem:text/plain $WORKING_DIR/clientBootstrap.sh:text/x-shellscript #creating an archive file for uploading to the cloud controller
+write-mime-multipart -z -o $DCAP_BNET_DIR/multi.txt.gz $PART_HANDLER:text/part-handler $DCAP_BNET_DIR/serverIP.txt:text/plain $DCAP_BNET_DIR/$CERT.pem:text/plain $STARTUP_SCRIPT_DIR/clientBootstrap.sh:text/x-shellscript #creating an archive file for uploading to the cloud controller
 
-#echo "write-mime-multipart -z -o $HOME/multi.txt.gz $PART_HANDLER:text/part-handler $HOME/serverIP.txt:text/plain $HOME/$CERT.pem:text/plain $WORKING_DIR/clientBootstrap.sh:text/x-shellscript"
 
-#echo "Starting Instances"
-INSTANCE=$($RUN_CMD -k $CERT -n $NUM $AMI -t $TYPE -f $HOME/multi.txt.gz | grep i- | cut -f 2)
+echo "Starting Instances"
+INSTANCE=$($EUCA_INITIALIZE_INSTANCES_CMD -k $CERT -n $NUM $AMI -t $TYPE -f $DCAP_BNET_DIR/multi.txt.gz | grep i- | cut -f 2)
 # set INSTANCE to return of command encapsulated by $() . Instances will be set to all ids that were started
 #echo $INSTANCE
 
-echo "$RUN_CMD -k $CERT -n $NUM $AMI -t $TYPE -f $HOME/multi.txt.gz"
+echo "$EUCA_INITIALIZE_INSTANCES_CMD -k $CERT -n $NUM $AMI -t $TYPE -f $DCAP_BNET_DIR/multi.txt.gz"
 # set INSTANCE to return of command encapsulated by $() . Instances will be set to all ids that were started
 
 echo "Started $INSTANCE"
 
 ##################### FOR STARTING JUST NODES ########################
-exit 0
+# exit 0
 
 # change to dcap directory
-cd $WORKING_DIR/$SERVER_SCRIPT_LOCATION
+cd $DCAP_SERVER_SCRIPT_DIR
 
 echo "Starting server script..."
+
 #==========run server scripts here:
-python $SERVER_SCRIPT -p $SERVERPORT -n $NAME -t $TASKFILE
+python $DCAP_SERVER_SCRIPT -p $SERVER_PORT -n $NAME -t $TASKFILE
 #===========
-cd $HOME
 
 # exit here, do not automatically terminate nodes
 exit 0
