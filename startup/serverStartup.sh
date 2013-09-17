@@ -60,7 +60,7 @@ python $DCAP_SERVER_SCRIPT -p $SERVER_PORT -n $NAME -t $TASKFILE
 # exit here, do not automatically terminate nodes
 exit 0
 
-INSTANCE=$(euca-describe-instances $INSTANCE | grep -v error | grep i- | cut -f 2) #filtering out ids of instances that are in error state
+INSTANCE=$(euca-describe-instances $INSTANCE | grep $CERT | grep $AMI | grep -v error | grep i- | cut -f 2) #filtering out ids of instances that are in error state
 echo "TERMINATING"
 echo $INSTANCE
 echo "Terminated $(xargs -t -a <(echo $INSTANCE) -n 1 -P 50 euca-terminate-instances | wc -l) instances" #kills nodesi

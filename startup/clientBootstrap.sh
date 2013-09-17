@@ -21,6 +21,11 @@ chmod 400 colin.pem
 scp -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $CERT.pem -r $SERVER_USER@$SERVER_IP:$SERVER_DCAP_BNET_DIR/$DCAP_DIR_NAME $CLIENT_HOME
 scp -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $CERT.pem -r $SERVER_USER@$SERVER_IP:$SERVER_DCAP_BNET_DIR/$BNET_DIR_NAME $CLIENT_HOME
 
+#set /etc/hosts to work with parallel matlab
+HOSTNAME=$(hostname)
+
+echo "127.0.0.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
+
 cd $DCAP_DIR_NAME
 CLIENT_SCRIPTPATH=$(find . -name $CLIENT_SCRIPT)
 SCRIPT_LOCATION=${CLIENT_SCRIPTPATH%/*}
