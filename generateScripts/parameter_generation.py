@@ -65,7 +65,7 @@ parameters.max_time_slice = 14;
 
 			input_parameters = '''
 %% Input parametes
-parameters.input_file = %s;
+parameters.input_file = \'%s\';
 parameters.features_set = %s;
 ''' %(data, features)
 

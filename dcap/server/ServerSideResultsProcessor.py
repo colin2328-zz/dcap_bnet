@@ -27,17 +27,17 @@ def processResult(messageQueue, IOLock, pathToReceivedResult):
     #sends results to
     timeName = datetime.datetime.now().strftime('%d%b%Y%H%M%S.%f/')
     pathToReceivedResult = pathToReceivedResult + '/..'
-    pathToSendResult = '/afs/csail.mit.edu/group/EVO-DesignOpt/bnet/results/' + timeName
+    pathToSendResult = '/root/dcap_bnet/results/' + timeName
 
     try:
-        # sendResults(pathToReceivedResult , pathToSendResult)
-        pass
+        sendResults(messageQueue, pathToReceivedResult , pathToSendResult)
+        # pass
 
     except Exception as e:
         messageQueue.put(UtilityFunctions.createLogEntry('err',"Could not send results to %s because: " % (pathToSendResult) + str(e) + format_exc()))
 
 
-def sendResults(pathToReceivedResult, pathToSendResult):
+def sendResults(messageQueue, pathToReceivedResult, pathToSendResult):
     '''Server sends results to specified location using FTP
     
     Args:

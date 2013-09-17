@@ -46,7 +46,6 @@ def ListenForClients(port, messageQueue, taskQueue, IOLock, numberOfConnections,
         s.listen(1)
         messageQueue.put(UtilityFunctions.createLogEntry('inf', 'Listening for clients'))
     except socket.error, msg:
-        print 'foo'
         messageQueue.put(UtilityFunctions.createLogEntry('inf','Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1] + format_exc()))
         raise 
 
