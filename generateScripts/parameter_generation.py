@@ -11,30 +11,39 @@ Date: 8/6/2013 (creation)
 import itertools
 import os
 
-# function to get a powerset from each feature
 def powerset(iterable):
-    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
+'''function to get a powerset from each feature'''
+"powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"		
     s = list(iterable)
     return itertools.chain.from_iterable(itertools.combinations(s, r) for r in range(len(s)+1))
 
 def underscore(arr):
+'''returns a string with an underscore between each array element'''
 	ret = ''
 	for ele in arr:
 		ret = ret + str(ele) + '_'
 	return ret;
 
+
 def create_dir_if_not_exists(directory):
+'''creates a directory if it does not exist with the full path name'''
 	if not os.path.isdir(directory):
 		os.makedirs(directory)
 
-#get the features_list
+#parameters
 feature_set = set([2, 4, 6, 8, 10])
+hidden_node_support_list = [7, 9, 11, 13, 15, 19, 21, 23, 25]
+data_list = ['all_users_bin5.csv', 'all_users_bin10.csv']
+number_to_train = 0
+number_to_test = 0
+
+
+
+#get the features_list
 features_list = map(lambda x: [1] + list(x), powerset(feature_set))
 features_list.pop(0) #remove just the feature 1
 features_list = map(sorted, features_list)
 
-hidden_node_support_list = [7, 9, 11, 13, 15, 19, 21, 23, 25]
-data_list = ['all_users_bin5.csv', 'all_users_bin10.csv']
 
 generate_dir =  os.getcwd()
 assert os.path.basename(generate_dir) == 'generateScripts', 'Script must be called from generateScripts directory!'
@@ -71,11 +80,11 @@ parameters.features_set = %s;
 
 			cross_validation_parameters = '''
 %% Cross validation parameters
-parameters.number_to_train = 0;             % 0 for full cross validation
-parameters.number_to_test = 0;              % 0 for full cross validation
+parameters.number_to_train = %s;             % 0 for full cross validation
+parameters.number_to_test = %s;              % 0 for full cross validation
 parameters.K = 5;                          % Number of cross validations.
 parameters.number_of_threads = parameters.K;          % It's a good idea to choose number_of_threads == K
-'''
+''' %(number_to_train, number_to_test)
 
 			bnet_learning_parameters = '''
 %% BNET learning parameters
