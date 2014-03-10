@@ -1,2 +1,1 @@
 testBnetTask1,../tasks/run_bnet.py,../tasks/testBnetTask
-testBnetTask2,../tasks/run_bnet.py,../tasks/testBnetTask

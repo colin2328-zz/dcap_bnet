@@ -8,21 +8,21 @@ import argparse
 import os
 import subprocess
 
-parser = argparse.ArgumentParser(description='Runs a dynamic bayesian network in matlab')
-parser.add_argument('parametersDirectory',type=str)
+parser = argparse.ArgumentParser(description='Runs a dynamic bayesian network in C++')
+parser.add_argument('parametersDirectory',type=str) # dataDirectory in ClientSideTaskHandler. Holds parameters file
 parser.add_argument('resultsDirectory',type=str)
 args = parser.parse_args()
-print 'running Bnet'
 
-parent_dir = os.getcwd() + '/../bnet'
-print "adding parent directory (%s) to matlab path" % (parent_dir)
+print 'running Bnet! parameters (data) dir is %s. resultsDirectory is %s' % (args.parametersDirectory, args.resultsDirectory)
 
-print 'loading transferred data from ', args.parametersDirectory
-os.chdir(args.parametersDirectory)
+print "Current directory is %s" % os.getcwd()
 
-matlab_command =  "matlab -nosplash -nodisplay -r \"addpath(genpath(\'%s\')); run_bnet(\'%s\',\'%s\')\"" % (parent_dir,args.parametersDirectory, args.resultsDirectory)
-print matlab_command
+HMM_file = os.path.abspath(os.path.join(os.getcwd(), "../bnet/HMM_EM"))
+config_file = os.path.relpath(os.path.join(args.parametersDirectory, "config.txt"))
 
-subprocess.call([matlab_command],shell=True);
+HMM_command = HMM_file + " " + config_file # need to concatenate since we are running binary
+print HMM_command
+
+subprocess.call(HMM_command,shell=True);
 
 print 'client done running Bnet'
