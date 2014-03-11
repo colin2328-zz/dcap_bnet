@@ -26,6 +26,8 @@ def processResult(messageQueue, IOLock, pathToReceivedResult):
 
     #sends results to
     timeName = datetime.datetime.now().strftime('%d%b%Y%H%M%S.%f/')
+    print os.getcwd()
+    print "path to received result", pathToReceivedResult
     pathToReceivedResult = pathToReceivedResult + '/..'
     pathToSendResult = '/root/dcap_bnet/results/' + timeName
 

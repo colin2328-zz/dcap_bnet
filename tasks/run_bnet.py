@@ -7,22 +7,40 @@ Date: 7/31/2013
 import argparse
 import os
 import subprocess
+import shutil
+
+def move_files(files, destination_dir):
+	for f in files:
+		shutil.move(f, destination_dir)
 
 parser = argparse.ArgumentParser(description='Runs a dynamic bayesian network in C++')
 parser.add_argument('parametersDirectory',type=str) # dataDirectory in ClientSideTaskHandler. Holds parameters file
 parser.add_argument('resultsDirectory',type=str)
 args = parser.parse_args()
 
-print 'running Bnet! parameters (data) dir is %s. resultsDirectory is %s' % (args.parametersDirectory, args.resultsDirectory)
+dcap_bnet_dir = os.getcwd()[: os.getcwd().find("dcap_bnet") + len("dcap_bnet")]
+HMM_file = "HMM_EM"
+config_file = os.path.abspath(os.path.join(args.parametersDirectory, "config.txt"))
+output_files = ["emissions.txt", "transitions.txt"]
 
-print "Current directory is %s" % os.getcwd()
+os.chdir(os.path.join(dcap_bnet_dir, "bnet")) # run from bnet directory
 
-HMM_file = os.path.abspath(os.path.join(os.getcwd(), "../bnet/HMM_EM"))
-config_file = os.path.relpath(os.path.join(args.parametersDirectory, "config.txt"))
+HMM_command = "./" + HMM_file + " " + config_file # need to concatenate since we are running binary
 
-HMM_command = HMM_file + " " + config_file # need to concatenate since we are running binary
-print HMM_command
+print 'running Bnet with this command "%s" ! parameters (data) dir is %s. resultsDirectory is %s' % (HMM_command, args.parametersDirectory, args.resultsDirectory)
 
 subprocess.call(HMM_command,shell=True);
 
-print 'client done running Bnet'
+print 'client done running Bnet! Moving files %s to resultsDirectory %s' % (output_files, args.resultsDirectory)
+
+move_files(output_files, args.resultsDirectory)
+
+print 'Client done moving files! Job finished'
+
+
+
+
+
+
+
+

@@ -148,7 +148,7 @@ def HandleConnection(connection, clientAdress, messageQueue, taskQueue, IOLock, 
                     messageQueue.put(UtilityFunctions.createLogEntry('inf','Client '+str(clientAdress)+' completed his task'))
                     pathToReceivedResult = ServerSideTaskHandler.completeTask(messageQueue,IOLock, task, receivedMessage['data'], resultsDirectory)
                     task = None
-                    ServerSideResultsProcessor.processResult(messageQueue, IOLock, pathToReceivedResult)
+                    # ServerSideResultsProcessor.processResult(messageQueue, IOLock, pathToReceivedResult)
                     
                     task, clientScript,data = ServerSideTaskHandler.getTask(messageQueue,taskQueue,IOLock)
                     if task == None:
