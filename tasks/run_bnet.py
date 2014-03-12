@@ -21,19 +21,20 @@ args = parser.parse_args()
 dcap_bnet_dir = os.getcwd()[: os.getcwd().find("dcap_bnet") + len("dcap_bnet")]
 HMM_file = "HMM_EM"
 config_file = os.path.abspath(os.path.join(args.parametersDirectory, "config.txt"))
+results_directory = os.path.abspath(os.path.join(os.getcwd(), args.resultsDirectory))
 output_files = ["emissions.txt", "transitions.txt"]
 
 os.chdir(os.path.join(dcap_bnet_dir, "bnet")) # run from bnet directory
 
 HMM_command = "./" + HMM_file + " " + config_file # need to concatenate since we are running binary
 
-print 'running Bnet with this command "%s" ! parameters (data) dir is %s. resultsDirectory is %s' % (HMM_command, args.parametersDirectory, args.resultsDirectory)
+print 'running Bnet with this command "%s" ! parameters (data) dir is %s. resultsDirectory is %s' % (HMM_command, args.parametersDirectory, results_directory)
 
 subprocess.call(HMM_command,shell=True);
 
-print 'client done running Bnet! Moving files %s to resultsDirectory %s' % (output_files, args.resultsDirectory)
+print 'client done running Bnet! Moving files %s to resultsDirectory %s' % (output_files, results_directory)
 
-move_files(output_files, args.resultsDirectory)
+move_files(output_files, results_directory)
 
 print 'Client done moving files! Job finished'
 
