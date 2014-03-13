@@ -17,11 +17,12 @@ parser = argparse.ArgumentParser(description='Runs a dynamic bayesian network in
 parser.add_argument('parametersDirectory',type=str) # dataDirectory in ClientSideTaskHandler. Holds parameters file
 parser.add_argument('resultsDirectory',type=str)
 args = parser.parse_args()
+start_dir = os.getcwd()
 
-dcap_bnet_dir = os.getcwd()[: os.getcwd().find("dcap_bnet") + len("dcap_bnet")]
+dcap_bnet_dir = start_dir[: start_dir.find("dcap_bnet") + len("dcap_bnet")]
 HMM_file = "HMM_EM"
 config_file = os.path.abspath(os.path.join(args.parametersDirectory, "config.txt"))
-results_directory = os.path.abspath(os.path.join(os.getcwd(), args.resultsDirectory))
+results_directory = os.path.abspath(os.path.join(start_dir, args.resultsDirectory))
 output_files = ["emissions.txt", "transitions.txt"]
 
 os.chdir(os.path.join(dcap_bnet_dir, "bnet")) # run from bnet directory
@@ -35,6 +36,8 @@ subprocess.call(HMM_command,shell=True);
 print 'client done running Bnet! Moving files %s to resultsDirectory %s' % (output_files, results_directory)
 
 move_files(output_files, results_directory)
+
+os.chdir(start_dir) # switch back
 
 print 'Client done moving files! Job finished'
 
