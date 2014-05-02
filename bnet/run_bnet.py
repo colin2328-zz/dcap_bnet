@@ -1,17 +1,13 @@
 '''
-Python script to run Bnet matlab script
+Python script to run run_hmm script
 
 Author: Colin Taylor <colin2328@gmail.com>
 Date: 7/31/2013
 '''
 import argparse
 import os
-import subprocess
 import shutil
-
-def move_files(files, destination_dir):
-	for f in files:
-		shutil.move(f, destination_dir)
+import sys
 
 parser = argparse.ArgumentParser(description='Runs a dynamic bayesian network in C++')
 parser.add_argument('parametersDirectory',type=str) # dataDirectory in ClientSideTaskHandler. Holds parameters file
@@ -23,28 +19,31 @@ dcap_bnet_dir = start_dir[: start_dir.find("dcap_bnet") + len("dcap_bnet")]
 config_file = os.path.abspath(os.path.join(args.parametersDirectory, "config.txt"))
 results_directory = os.path.abspath(os.path.join(start_dir, args.resultsDirectory))
 
-output_files = ["emissions.txt", "transitions.txt"]
+with open(config_file) as f:
+	data_file_base, num_support = f.read().split("\n")
+
+num_support = int(num_support)
+
+model_files = ["emissions.txt", "transitions.txt"]
+model_directory = "models/%s_support_%s/" % (data_file_base, num_support)
+inference_files = ["hmm_%s_support_%s_%s.csv" % (data_file_base, num_support, train_test) for train_test in ["train", "test"]]
+inference_directory = "results/"
 
 os.chdir(os.path.join(dcap_bnet_dir, "bnet")) # run from bnet directory
+sys.path.append(os.getcwd())
 
-HMM_command = "./" + HMM_file + " " + config_file # need to concatenate since we are running binary
+import run_hmm
+import utils
 
-print 'running Bnet with this command "%s" ! parameters (data) dir is %s. resultsDirectory is %s' % (HMM_command, args.parametersDirectory, results_directory)
+print 'Running HMM for %s support %s.  parameters (data) dir is %s. resultsDirectory is %s' % (data_file_base, num_support, args.parametersDirectory, results_directory)
 
-subprocess.call(HMM_command,shell=True);
+run_hmm.run_hmm(data_file_base, num_support, num_pools=12, num_iterations=5)
 
-print 'client done running Bnet! Moving files %s to resultsDirectory %s' % (output_files, results_directory)
+print 'Client done running HMM! Moving files %s and %s to resultsDirectory %s' % (model_files, inference_files, results_directory)
 
-move_files(output_files, results_directory)
+utils.copy_files(model_files, model_directory, results_directory)
+utils.copy_files(inference_files, inference_directory, results_directory)
 
 os.chdir(start_dir) # switch back
 
 print 'Client done moving files! Job finished'
-
-
-
-
-
-
-
-
