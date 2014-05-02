@@ -36,10 +36,8 @@ for cohort in cohorts:
 		create_dir_if_not_exists(folder_name)
 		f = open(os.path.join(folder_name, "config.txt"), "w")
 
-		parameters = '''
-%s
-%s
-''' % (data_file_base, str(hidden_node_support))
+		parameters = '''%s
+%s''' % (data_file_base, str(hidden_node_support))
 
 		f.write(parameters);
 		f.close()
