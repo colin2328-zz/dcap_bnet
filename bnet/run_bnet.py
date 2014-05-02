@@ -20,9 +20,9 @@ args = parser.parse_args()
 start_dir = os.getcwd()
 
 dcap_bnet_dir = start_dir[: start_dir.find("dcap_bnet") + len("dcap_bnet")]
-HMM_file = "HMM_EM"
 config_file = os.path.abspath(os.path.join(args.parametersDirectory, "config.txt"))
 results_directory = os.path.abspath(os.path.join(start_dir, args.resultsDirectory))
+
 output_files = ["emissions.txt", "transitions.txt"]
 
 os.chdir(os.path.join(dcap_bnet_dir, "bnet")) # run from bnet directory
