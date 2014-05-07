@@ -94,7 +94,7 @@ OTHER""" % (num_support, num_iterations, "../" + data_file_crossval_train)
 	for crossval_num, rocs in enumerate(crossval_rocs):
 		if not rocs[0][0] == None:
 			for (lead, auc) in rocs:
-				data = utils.add_to_data(data, [lead, crossval_num, auc])
+				data = utils.add_to_data(data, [crossval_num, lead, auc])
 				np.savetxt(crossval_file, np.atleast_2d(data), fmt="%s", delimiter=",", header=header, comments='')
 	np.savetxt(crossval_file, np.atleast_2d(data), fmt="%s", delimiter=",", header=header, comments='')
 if __name__ == "__main__":
