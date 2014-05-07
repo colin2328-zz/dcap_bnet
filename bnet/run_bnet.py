@@ -26,7 +26,7 @@ num_support = int(num_support)
 
 model_files = ["emissions.txt", "transitions.txt"]
 model_directory = "models/%s_support_%s/" % (data_file_base, num_support)
-inference_files = ["hmm_%s_support_%s_%s.csv" % (data_file_base, num_support, train_test) for train_test in ["train", "test"]]
+inference_files = ["hmm_%s_support_%s_%s.csv" % (data_file_base, num_support, train_test) for train_test in ["train", "test", "crossval"]]
 inference_directory = "results/"
 
 os.chdir(os.path.join(dcap_bnet_dir, "bnet")) # run from bnet directory

@@ -96,7 +96,6 @@ def initializeServerFolderStructure(timeName):
     
     serverResultsDirectory = os.path.join(resultsDirectory,timeName)
     serverLogsDirectory = os.path.join(logsDirectory,timeName)
-    print serverResultsDirectory
     os.makedirs(serverResultsDirectory)
     os.makedirs(serverLogsDirectory)
     
