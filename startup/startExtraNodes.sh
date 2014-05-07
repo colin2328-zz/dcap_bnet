@@ -3,17 +3,10 @@
 #==========Parameters
 HOME=/root
 DCAP_BNET_DIR=$HOME/dcap_bnet
-STARTUP_SCRIPT_DIR=$DCAP_BNET_DIR/startup
 CERT=colin
 TYPE=m1.12core
-AMI=ami-0000022f
-DCAP_SERVER_SCRIPT_DIR=$DCAP_BNET_DIR/dcap
-DCAP_SERVER_SCRIPT=RunServer.py 
-PART_HANDLER=$(readlink -f part_handler.py)
+AMI=ami-00000234
 EUCA_INITIALIZE_INSTANCES_CMD=euca-run-instances 
-SERVER_PORT=4444
-#TASKFILE='../tasks/testBnetTasks.txt'
-TASKFILE='../tasks/bnetTasks.txt'
 #=====================
 
 
