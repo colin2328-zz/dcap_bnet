@@ -5,7 +5,7 @@ HOME=/root
 DCAP_BNET_DIR=$HOME/dcap_bnet
 CERT=colin
 TYPE=m1.12core
-AMI=ami-00000234
+AMI=ami-00000235
 EUCA_INITIALIZE_INSTANCES_CMD=euca-run-instances 
 #=====================
 
