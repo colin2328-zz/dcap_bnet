@@ -1,1 +1,2 @@
 testBnetTask1,../bnet/run_bnet.py,../tasks/testBnetTask
+testBnetTask2,../bnet/run_bnet_logreg.py,../tasks/testBnetTask

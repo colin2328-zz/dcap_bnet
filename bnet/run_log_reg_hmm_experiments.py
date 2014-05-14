@@ -23,17 +23,17 @@ def execute_log_reg_hmm(features_base_cohort_support_lead_lag_pools_iterations):
 	except Exception as e:
 		print e
 
-def run_experiments(cohort, num_support, num_pools, num_iterations):
+def run_experiments(data_file_base, num_support, num_pools, num_iterations):
 	header = "lead,lag,support,auc"
 	features_base = "features_"
+	cohort = data_file_base[len(features_base):- len("_bin_5")] # to incldue the same config file as hmm
 
 	start_time = time.time()
-	train_results_file = "results/logistic_reg_hmm_" + features_base + cohort + "_bin_5_support_%s_train" % num_support + ".csv"
-	test_results_file = "results/logistic_reg_hmm_" + features_base + cohort + "_bin_5_support_%s_test" % num_support + ".csv"
+	train_results_file = "results/logistic_reg_hmm_" + data_file_base + "_support_%s_train" % num_support + ".csv"
+	test_results_file = "results/logistic_reg_hmm_" + data_file_base + "_support_%s_test" % num_support + ".csv"
 
 	train_data = None
 	test_data = None
-	data_file_base = features_base + cohort + "_bin_5"
 	run_train_hmm.train_model(data_file_base, num_support, num_pools=num_pools, num_iterations=num_iterations, logreg=True, do_parallel=True)
 	pool = Pool(num_pools)
 	args_list = []
