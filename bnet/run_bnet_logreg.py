@@ -26,7 +26,7 @@ num_support = int(num_support)
 
 model_files = ["emissions.txt", "transitions.txt"]
 model_directory = "models/%s_support_%s_logreg/" % (data_file_base, num_support)
-inference_files = ["logistic_reg_hmm_%s_support_%s_%s.csv" % (data_file_base, num_support, train_test) for train_test in ["train", "test"]]
+inference_files = ["logistic_reg_hmm_%s_support_%s_%s.csv" % (data_file_base, num_support, train_test) for train_test in ["train", "test", "crossval"]]
 inference_directory = "results/"
 
 os.chdir(os.path.join(dcap_bnet_dir, "bnet")) # run from bnet directory
@@ -39,7 +39,7 @@ print 'Running HMM for %s support %s.  parameters (data) dir is %s. resultsDirec
 
 run_experiments(data_file_base, num_support, num_pools=12, num_iterations=5)
 
-print 'Client done running HMM! Moving files %s and %s to resultsDirectory %s' % (model_files, inference_files, results_directory)
+print 'Client done running HMM_logreg! Moving files %s and %s to resultsDirectory %s' % (model_files, inference_files, results_directory)
 
 utils.copy_files(model_files, model_directory, results_directory)
 utils.copy_files(inference_files, inference_directory, results_directory)

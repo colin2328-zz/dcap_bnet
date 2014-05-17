@@ -17,7 +17,7 @@ def create_dir_if_not_exists(directory):
 		os.makedirs(directory)
 
 #parameters
-cohorts = ["wiki_only", "forum_only", "forum_and_wiki", "no_collab"]
+cohorts = ["wiki_only", "forum_only_pca", "forum_and_wiki_pca", "no_collab_pca"]
 data_file_prefix = "features_"
 data_file_suffix = "_bin_5"
 hidden_supports = range(3,30,2)
@@ -44,6 +44,8 @@ for cohort in cohorts:
 
 		# concatanates a row to bnetTasks with a name, path to py, and folder
 		task = '%s,../bnet/run_bnet.py,../tasks/%s\n' %(folder_name, folder_name)
+		tasks_file.write(task)
+		task = '%s_logreg,../bnet/run_bnet_logreg.py,../tasks/%s\n' %(folder_name, folder_name)
 		tasks_file.write(task)
 tasks_file.close()
 
