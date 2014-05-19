@@ -20,7 +20,8 @@ config_file = os.path.abspath(os.path.join(args.parametersDirectory, "config.txt
 results_directory = os.path.abspath(os.path.join(start_dir, args.resultsDirectory))
 
 with open(config_file) as f:
-	data_file_base, num_support = f.read().split("\n")
+	args1= f.read().split("\n")
+	data_file_base, num_support = args1[:2]
 
 num_support = int(num_support)
 
