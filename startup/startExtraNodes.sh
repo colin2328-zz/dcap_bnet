@@ -3,9 +3,11 @@
 #==========Parameters
 HOME=/root
 DCAP_BNET_DIR=$HOME/dcap_bnet
+STARTUP_SCRIPT_DIR=$DCAP_BNET_DIR/startup
 CERT=colin
-TYPE=lg.12core
+TYPE=m1.12core
 AMI=ami-00000242
+PART_HANDLER=$(readlink -f part_handler.py)
 EUCA_INITIALIZE_INSTANCES_CMD=euca-run-instances 
 #=====================
 
