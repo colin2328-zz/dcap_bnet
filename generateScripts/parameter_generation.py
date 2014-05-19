@@ -18,7 +18,7 @@ def create_dir_if_not_exists(directory):
 
 #parameters
 # cohorts = ["wiki_only", "forum_only_pca", "forum_and_wiki_pca", "no_collab_pca"]
-cohorts = ["forum_only_pca", "forum_and_wiki_pca", "no_collab_pca"]
+cohorts = ["wiki_only", "forum_and_wiki_pca", "no_collab_pca", "forum_only_pca"]
 data_file_prefix = "features_"
 data_file_suffix = "_bin_5"
 hidden_supports = range(3,30,2)

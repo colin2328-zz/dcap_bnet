@@ -12,8 +12,8 @@ DCAP_SERVER_SCRIPT=RunServer.py
 PART_HANDLER=$(readlink -f part_handler.py)
 EUCA_INITIALIZE_INSTANCES_CMD=euca-run-instances 
 SERVER_PORT=4444
-TASKFILE='../tasks/testBnetTasks.txt'
-# TASKFILE='../tasks/bnetTasks.txt'
+# TASKFILE='../tasks/testBnetTasks.txt'
+TASKFILE='../tasks/bnetTasks.txt'
 #=====================
 
 
