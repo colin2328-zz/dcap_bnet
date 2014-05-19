@@ -10,7 +10,8 @@ cd $HOME
 #read ip from text file
 SERVER_IP=$(cat serverIP.txt)
 cd ${DCAP_BNET_DIR}
-scp root@$SERVER_IP:${DCAP_BNET_DIR}/bnet/*.py bnet/
+chmod 0600 colin.pem
+scp -i colin.pem root@$SERVER_IP:${DCAP_BNET_DIR}/bnet/*.py ${DCAP_BNET_DIR}/bnet/
 
 cd ${DCAP_BNET_DIR}/${DCAP_DIR}
 
