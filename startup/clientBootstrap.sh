@@ -11,7 +11,7 @@ cd $HOME
 SERVER_IP=$(cat serverIP.txt)
 cd ${DCAP_BNET_DIR}
 chmod 0600 colin.pem
-scp -i colin.pem root@$SERVER_IP:${DCAP_BNET_DIR}/bnet/*.py ${DCAP_BNET_DIR}/bnet/
+scp -i colin.pem -o StrictHostKeyChecking=no root@$SERVER_IP:${DCAP_BNET_DIR}/bnet/*.py ${DCAP_BNET_DIR}/bnet/
 
 cd ${DCAP_BNET_DIR}/${DCAP_DIR}
 
